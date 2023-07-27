@@ -33,7 +33,7 @@ const select = {
     },
   };
 
-  const classNames = {
+ /* const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
@@ -46,7 +46,7 @@ const select = {
       defaultMin: 1,
       defaultMax: 9,
     }
-  };
+  };*/
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -60,6 +60,7 @@ const select = {
 
       thisProduct.renderInMenu(); // Zadba o to, by nasz konstruktor uruchomił tę funkcję od razu po utworzeniu instancji.
       //console.log('new Product: ', thisProduct);
+      thisProduct.getElements();
       thisProduct.initAccordion(); //uruchamia accordion
 
     }
@@ -73,6 +74,7 @@ const select = {
 
         /* create element using utilies.createElementFromHTML*/
         thisProduct.element = utils.createDOMFromHTML(generatedHTML);
+        console.log('!!!!!!!!!!!!!!!!', thisProduct.element);
         /* find menu container */
         const menuConatiner = document.querySelector(select.containerOf.menu);
 
@@ -80,6 +82,15 @@ const select = {
         /* add element to menu */
         menuConatiner.appendChild(thisProduct.element);
 
+  }
+  getElements(){
+    const thisProduct = this;
+
+    thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable);
+    thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+    thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+    thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
+    thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
   }
 
   initAccordion(){
