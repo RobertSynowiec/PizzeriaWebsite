@@ -33,14 +33,14 @@ const select = {
     },
   };
 
-  /*const classNames = {
+  const classNames = {
     menuProduct: {
       wrapperActive: 'active',
       imageVisible: 'active',
     },
   };
 
-  const settings = {
+  /*const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
@@ -93,8 +93,8 @@ const select = {
         thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
         thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
         thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
-
-
+        thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper); // used images
+        console.log('thisProduct.imageWrapper : ', thisProduct.imageWrapper);
       }
 
       initAccordion(){
@@ -135,8 +135,6 @@ const select = {
       initOrderForm(){
 
         const thisProduct = this;
-        console.log('metoda initOrderForm: ', thisProduct);
-
 
         thisProduct.form.addEventListener('submit', function(event){
           event.preventDefault();
@@ -158,6 +156,7 @@ const select = {
       processOrder() {
 
         const thisProduct = this;
+        console.log('this product: ', thisProduct);
 
         // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
         const formData = utils.serializeFormToObject(thisProduct.form);
@@ -165,18 +164,28 @@ const select = {
         // set price to default price
         let price = thisProduct.data.price;
 
+        // START start
+
+
         // for every category (param)...
         for(let paramId in thisProduct.data.params) {
+
           // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
           const param = thisProduct.data.params[paramId];
+          console.log('param :', param);
 
           // for every option in this category
           for(let optionId in param.options) {
+
             // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
             const option = param.options[optionId];
+            console.log('option: ', option);
 
           // check if there is param with a name of paramId in formData and if it includes optionId
-          if(formData[paramId] && formData[paramId].includes(optionId)) {
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+
+          if(optionSelected) {
+
             // check if the option is not default
             if(option.default == true) {
 
@@ -185,20 +194,45 @@ const select = {
               price = price + option.price;
 
             }
-          } else {
-            // check if the option is default
-            if(option.default !==  true) {
+          }else if(option.default !==  true) {
               // reduce price variable
               price = price - option.price;
-            }
-          }
 
+          }
+          // END price
+
+
+          // START images
+          const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId); // '.' because we are looking after class
+          console.log(optionImage);
+
+
+            // check if the option exists
+            if(optionImage){
+
+              if(optionSelected){
+
+              // if the option exists add class active
+              optionImage.classList.add(classNames.menuProduct.imageVisible);
+
+
+          } else{
+
+            // remove class active
+            optionImage.classList.remove(classNames.menuProduct.imageVisible);
           }
         }
 
+        // END images
+      }
+    }
+
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
+       // thisProduct.imageWrapper = optionImage
+
       }
+
     }
 
   const app = {
