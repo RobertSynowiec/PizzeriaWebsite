@@ -57,19 +57,20 @@ const select = {
 
       thisProduct.id = id;
       thisProduct.data = data;
+      //console.log('this product data ', thisProduct.data);
 
       thisProduct.renderInMenu(); // Zadba o to, by nasz konstruktor uruchomił tę funkcję od razu po utworzeniu instancji.
       //console.log('new Product: ', thisProduct);
       thisProduct.getElements(); // wywołania metod
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
+      thisProduct.initAmountWidget();
       thisProduct.processOrder();
-
 
     }
 
       renderInMenu(){
-        const thisProduct = this; // metoda która bedzie renderować ( tworzyc produkty na stronie)
+        const thisProduct = this; // metoda która bedzie renderować ( tworzyc thisProduct.data na stronie)
 
         /* generate HTML based on temaplte */
         const generatedHTML = templates.menuProduct(thisProduct.data);
@@ -90,13 +91,17 @@ const select = {
 
         thisProduct.accordionTrigger = thisProduct.element.querySelector(select.menuProduct.clickable); // used in initAccordion
         thisProduct.form = thisProduct.element.querySelector(select.menuProduct.form);
+        //console.log('thisProduct.form, ',thisProduct.form);
+
         thisProduct.formInputs = thisProduct.form.querySelectorAll(select.all.formInputs);
+        //console.log('thisProduct.formInputs ', thisProduct.formInputs);
         thisProduct.cartButton = thisProduct.element.querySelector(select.menuProduct.cartButton);
         thisProduct.priceElem = thisProduct.element.querySelector(select.menuProduct.priceElem);
         thisProduct.imageWrapper = thisProduct.element.querySelector(select.menuProduct.imageWrapper); // used images
-        console.log('thisProduct.imageWrapper : ', thisProduct.imageWrapper);
-      }
+        thisProduct.amountWidgetElem = thisProduct.element.querySelector(select.menuProduct.amountWidget);
+        console.log('thisProduct.amountWidgetElem ', thisProduct.amountWidgetElem);
 
+      }
       initAccordion(){
 
         const thisProduct = this;
@@ -113,6 +118,7 @@ const select = {
           /* find active product (product that has active class) */
 
           const activeProducts = document.querySelectorAll(select.all.menuProductsActive);
+
           //console.log('activeProducts' , activeProducts);
 
           /* if there is active product and it's not thisProduct.element,
@@ -131,7 +137,7 @@ const select = {
           thisProduct.element.classList.toggle('active')
 
             });
-          }
+      }
       initOrderForm(){
 
         const thisProduct = this;
@@ -153,13 +159,14 @@ const select = {
         });
 
       }
-      processOrder() {
+      processOrder(){
 
         const thisProduct = this;
-        console.log('this product: ', thisProduct);
+        //console.log('this product: ', thisProduct);
 
         // covert form to object structure e.g. { sauce: ['tomato'], toppings: ['olives', 'redPeppers']}
         const formData = utils.serializeFormToObject(thisProduct.form);
+
 
         // set price to default price
         let price = thisProduct.data.price;
@@ -172,18 +179,18 @@ const select = {
 
           // determine param value, e.g. paramId = 'toppings', param = { label: 'Toppings', type: 'checkboxes'... }
           const param = thisProduct.data.params[paramId];
-          console.log('param :', param);
+          //console.log('param :', param);
 
           // for every option in this category
           for(let optionId in param.options) {
 
             // determine option value, e.g. optionId = 'olives', option = { label: 'Olives', price: 2, default: true }
             const option = param.options[optionId];
-            console.log('option: ', option);
+            //console.log('option: ', option);
 
           // check if there is param with a name of paramId in formData and if it includes optionId
           const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
-
+            //console.log('optionSelected ', optionSelected);
           if(optionSelected) {
 
             // check if the option is not default
@@ -204,7 +211,7 @@ const select = {
 
           // START images
           const optionImage = thisProduct.imageWrapper.querySelector('.' + paramId + '-' + optionId); // '.' because we are looking after class
-          console.log(optionImage);
+          //console.log(optionImage);
 
 
             // check if the option exists
@@ -229,7 +236,76 @@ const select = {
 
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
-       // thisProduct.imageWrapper = optionImage
+
+      }
+      initAmountWidget(){
+        const thisProduct = this;
+
+        thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem); // pass references to element in constructor(element)
+      }
+
+    }
+    class AmountWidget{
+
+      constructor(element){
+        const thisWidget = this;
+
+        console.log('AmountWidget ', thisWidget);
+        console.log('constructor arguments ', element);
+
+        thisWidget.getElements(element);
+
+        thisWidget.setValue(thisWidget.input.value);
+        thisWidget.initActions();
+
+
+      }
+      getElements(element){
+        const thisWidget = this;
+
+        thisWidget.element = element;
+        thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
+        console.log('thisWidget.input' , thisWidget.input);
+        thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
+        thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+      }
+      setValue(value){
+        const thisWidget = this;
+
+        const newValue = parseInt(value); // parseInt zadba o konwersję takiej przykładowej '10' ( string) do liczby 10 ( Int)
+
+        /* TODO: Add validation */
+
+        if(thisWidget.value !== newValue && !isNaN(newValue)) {
+          thisWidget.value = newValue;
+          console.log('thisWidget.value ', thisWidget.value);
+
+        }
+
+        thisWidget.input.value = thisWidget.value;
+        console.log('thisWidget.input.value ', thisWidget.input.value);
+
+      }
+
+      initActions(){
+
+        const thisWidget = this;
+
+        thisWidget.input.addEventListener('change', function(){
+        thisWidget.setValue(thisWidget.input.value);
+        });
+
+        thisWidget.linkDecrease.addEventListener('click', function(event){
+          event.preventDefault();
+          thisWidget.value--;
+          thisWidget.setValue(thisWidget.value);
+        });
+
+        thisWidget.linkIncrease.addEventListener('click', function(event){
+          event.preventDefault();
+          thisWidget.value++;
+          thisWidget.setValue(thisWidget.value);
+        });
 
       }
 
@@ -269,3 +345,4 @@ const select = {
 
   app.init();
 }
+
