@@ -40,13 +40,13 @@ const select = {
     },
   };
 
-  /*const settings = {
+  const settings = {
     amountWidget: {
       defaultValue: 1,
       defaultMin: 1,
       defaultMax: 9,
     }
-  };*/
+  };
 
   const templates = {
     menuProduct: Handlebars.compile(document.querySelector(select.templateOf.menuProduct).innerHTML),
@@ -233,7 +233,8 @@ const select = {
         // END images
       }
     }
-
+        // multiply price by amount
+        price *= thisProduct.amountWidget.value;
         // update calculated price in the HTML
         thisProduct.priceElem.innerHTML = price;
 
@@ -242,6 +243,11 @@ const select = {
         const thisProduct = this;
 
         thisProduct.amountWidget = new AmountWidget(thisProduct.amountWidgetElem); // pass references to element in constructor(element)
+        thisProduct.amountWidgetElem.addEventListener('updated', function(){
+          thisProduct.processOrder();
+
+        });
+
       }
 
     }
@@ -254,10 +260,8 @@ const select = {
         console.log('constructor arguments ', element);
 
         thisWidget.getElements(element);
-
-        thisWidget.setValue(thisWidget.input.value);
+        thisWidget.setValue(settings.amountWidget.defaultValue);
         thisWidget.initActions();
-
 
       }
       getElements(element){
@@ -265,25 +269,29 @@ const select = {
 
         thisWidget.element = element;
         thisWidget.input = thisWidget.element.querySelector(select.widgets.amount.input);
-        console.log('thisWidget.input' , thisWidget.input);
         thisWidget.linkDecrease = thisWidget.element.querySelector(select.widgets.amount.linkDecrease);
         thisWidget.linkIncrease = thisWidget.element.querySelector(select.widgets.amount.linkIncrease);
+
       }
       setValue(value){
         const thisWidget = this;
 
         const newValue = parseInt(value); // parseInt zadba o konwersję takiej przykładowej '10' ( string) do liczby 10 ( Int)
+        console.log('newvalue', newValue);
 
         /* TODO: Add validation */
 
-        if(thisWidget.value !== newValue && !isNaN(newValue)) {
-          thisWidget.value = newValue;
-          console.log('thisWidget.value ', thisWidget.value);
+        if (
+        thisWidget.value !== newValue &&
+        !isNaN(newValue) &&
+        newValue >= settings.amountWidget.defaultMin - 1 &&
+        newValue <= settings.amountWidget.defaultMax + 1) {
 
+          thisWidget.value = newValue;
+          thisWidget.announce();
         }
 
         thisWidget.input.value = thisWidget.value;
-        console.log('thisWidget.input.value ', thisWidget.input.value);
 
       }
 
@@ -297,15 +305,21 @@ const select = {
 
         thisWidget.linkDecrease.addEventListener('click', function(event){
           event.preventDefault();
-          thisWidget.value--;
-          thisWidget.setValue(thisWidget.value);
+          thisWidget.setValue(thisWidget.value - 1);
         });
 
         thisWidget.linkIncrease.addEventListener('click', function(event){
           event.preventDefault();
-          thisWidget.value++;
-          thisWidget.setValue(thisWidget.value);
+          thisWidget.setValue(thisWidget.value + 1);
         });
+
+      }
+      announce(){
+
+        const thisWidget = this;
+
+        const event = new Event('updated');
+        thisWidget.element.dispatchEvent(event);
 
       }
 
