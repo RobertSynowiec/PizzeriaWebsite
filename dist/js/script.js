@@ -182,6 +182,7 @@
         thisProduct.cartButton.addEventListener('click', function(event){
           event.preventDefault();
           thisProduct.processOrder();
+          thisProduct.addToCart();
         });
 
       }
@@ -262,7 +263,9 @@
         // multiply price by amount
         price *= thisProduct.amountWidget.value;
         // update calculated price in the HTML
+        thisProduct.priceSingiel = price;
         thisProduct.priceElem.innerHTML = price;
+
 
       }
       initAmountWidget(){
@@ -273,6 +276,32 @@
           thisProduct.processOrder();
 
         });
+
+      }
+      addToCart(){
+        const thisProduct = this;
+        app.cart.add(thisProduct.prepareCartProduct());
+
+
+/// koniec
+
+
+      }
+      prepareCartProduct(){
+        const thisProduct = this;
+
+        const productSummary = {
+
+          id: thisProduct.id,
+          name: thisProduct.name,
+          amount: thisProduct.amount,
+          priceSingle: thisProduct.priceSingle,
+          price: (thisProduct.priceSingle * thisProduct.amount),
+          params: {},
+
+        };
+
+        return productSummary;
 
       }
 
@@ -350,6 +379,7 @@
 
       }
 
+
   }
   class Cart{
     constructor(element){
@@ -376,6 +406,11 @@
       thisCart.dom.wrapper.classList.toggle('active');
 
     });
+  }
+  add(menuProduct){
+    // const thisCart = this;
+
+    console.log('adding product ', menuProduct);
 
   }
 }
