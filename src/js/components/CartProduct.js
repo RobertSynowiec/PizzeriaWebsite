@@ -81,8 +81,7 @@ class CartProduct{
         thisCartProduct.remove();
       });
     }
-
-      getData(){
+    getData(){
 
         const thisCartProduct = this;
 
@@ -96,6 +95,6 @@ class CartProduct{
         };
         return cartProductSummary;
 
-      }
+    }
   }
   export default CartProduct;
