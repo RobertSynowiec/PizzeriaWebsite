@@ -21,9 +21,8 @@ class BaseWidget {
 
         /* TODO: Add validation */
 
-        if (
-            thisWidget.correctValue !== newValue &&
-            !isNaN(newValue) && thisWidget.isValid(newValue)) {
+        if (thisWidget.correctValue !== newValue
+            && thisWidget.isValid(newValue)) {
 
             thisWidget.correctValue = newValue;
             thisWidget.announce();
@@ -45,13 +44,12 @@ class BaseWidget {
     renderValue() {
 
         const thisWidget = this;
-        thisWidget.dom.wrapper.innerHTML = thisWidget.Value;
+        thisWidget.dom.wrapper.innerHTML = thisWidget.value;
 
     }
     announce() {
 
         const thisWidget = this;
-        //console.log(thisWidget);
 
         const event = new CustomEvent('updated', { bubbles: true });
         thisWidget.dom.wrapper.dispatchEvent(event);
