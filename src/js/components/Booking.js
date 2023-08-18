@@ -10,6 +10,10 @@ class Booking {
     this.render(element);
     this.initWidgets();
     this.getData();
+
+    this.infoChangeTable;
+    console.log('infoChangeTable', this.infoChangeTable)
+
   }
 
   getData() {
@@ -133,6 +137,7 @@ class Booking {
         table.classList.add(classNames.booking.tableBooked);
       } else {
         table.classList.remove(classNames.booking.tableBooked);
+        table.classList.remove(classNames.booking.tableSelected);
       }
     }
   }
@@ -143,15 +148,14 @@ class Booking {
     const generatedHTML = templates.bookingWidget();
     this.element = utils.createDOMFromHTML(generatedHTML);
 
-    this.dom = {};
+    this.dom = [];
     this.dom.wrapper = elemenet;
-
     this.dom.peopleAmount = this.element.querySelector(select.booking.peopleAmount);
     this.dom.hoursAmount = this.element.querySelector(select.booking.hoursAmount);
     this.dom.datePicker = this.element.querySelector(select.widgets.datePicker.wrapper);
     this.dom.hourPicker = this.element.querySelector(select.widgets.hourPicker.wrapper);
     this.dom.tables = this.element.querySelectorAll(select.booking.tables);
-
+    this.dom.mapFloor = this.element.querySelector(select.booking.mapFloor);
     this.dom.wrapper.appendChild(this.element);
 
   }
@@ -166,8 +170,42 @@ class Booking {
     this.dom.wrapper.addEventListener('updated', function () {
 
       thisBooking.updateDOM();
-    })
-  }
-}
+    });
+    this.dom.mapFloor.addEventListener('click', event => {
 
+      this.initTables(event);
+    })
+
+  }
+
+  initTables(event) {
+
+
+    for (let table of this.dom.tables) {
+
+      //debugger;
+
+      if (table !== event.target) {
+
+        table.classList.remove(classNames.booking.tableSelected);
+      }
+    }
+    if (!event.target.classList.contains(classNames.booking.tableBooked)) {
+
+      event.target.classList.toggle(classNames.booking.tableSelected);
+
+      this.infoChangeTable = event.target.getAttribute(settings.booking.tableIdAttribute);
+
+      console.log('id', this.infoChangeTable,);
+
+
+    }
+    else {
+      alert('This table is not available during these hours');
+
+    }
+  }
+
+
+}
 export default Booking;
