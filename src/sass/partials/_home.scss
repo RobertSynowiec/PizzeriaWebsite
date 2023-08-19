@@ -1,0 +1,36 @@
+.carousel-opinion {
+  display: flex;
+  flex-direction: row;
+  &-img {
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+  }
+  &-texts {
+    display: flex;
+    flex-direction: column;
+    width: 410px;
+    padding-left: 40px;
+    padding-right: 130px;
+    font-family: $font-text;
+    color: $color-dark;
+    font-size: 12px;
+
+    &-title {
+      margin-top: 5px;
+      text-transform: uppercase;
+      font-weight: $font-bold;
+    }
+
+    &-description {
+      font-weight: $font-normal;
+      line-height: 23px;
+      margin: 0;
+    }
+
+    &-signature {
+      font-style: italic;
+      font-weight: $font-normal;
+    }
+  }
+}
