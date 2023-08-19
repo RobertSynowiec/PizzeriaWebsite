@@ -44,6 +44,10 @@ export const select = {
     hoursAmount: '.hours-amount',
     tables: '.floor-plan .table',
     mapFloor: '.floor-plan',
+    form: '.order-confirmation .btn-secondary',
+    totalPeopleAmount: '.people-amount .amount',
+    totalHoursAmount: '.hours-amount .amount',
+    optionStarters: '.booking-options',
   },
 
   nav: {

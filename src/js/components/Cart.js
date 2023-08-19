@@ -106,6 +106,7 @@ class Cart {
     const thisCart = this;
 
     const url = settings.db.url + '/' + settings.db.orders;
+    console.log('cart url', url);
 
     const payload = {
 
