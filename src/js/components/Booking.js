@@ -8,8 +8,6 @@ class Booking {
   constructor(element) {
     this.filteredStarters = [];
 
-    console.log(" this.filteredStarters ", this.filteredStarters);
-
     this.render(element);
     this.initWidgets();
     this.getData();
@@ -258,6 +256,7 @@ class Booking {
 
   sendBooking() {
     const url = settings.db.url + "/" + settings.db.booking;
+    console.log(url);
 
     const payload = {
       date: this.dateWidget.value,
@@ -277,7 +276,7 @@ class Booking {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(this.payload),
+      body: JSON.stringify(payload),
     };
 
     fetch(url, options)
