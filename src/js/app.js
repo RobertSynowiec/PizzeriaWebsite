@@ -2,6 +2,7 @@ import { settings, select, classNames } from "./settings.js";
 import Product from './components/Product.js';
 import Cart from './components/Cart.js';
 import Booking from './components/Booking.js';
+import Home from './components/Home.js';
 
 
 const app = {
@@ -99,8 +100,18 @@ const app = {
     thisApp.initData(); //ma zadanie przygotować nam łatwy dostęp do danych. Przypisuje więc do app.data (właściwości całego obiektu app) referencję do dataSource
 
     thisApp.initCart();
+    thisApp.initHome();
     thisApp.initPages();
     thisApp.initBooking();
+
+  },
+  initHome: function () {
+
+    const thisApp = this;
+    const containerHome = document.querySelector(select.containerOf.home);
+
+    thisApp.home = new Home(containerHome);
+
   },
   initCart: function () {
     const thisApp = this;

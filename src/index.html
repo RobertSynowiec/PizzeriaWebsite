@@ -66,44 +66,7 @@
 
   <div id="pages">
     <section id="home">
-      <div class="booking-home container">
-      <!-- Flickity HTML init -->
-      <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true }'>
-        <div class="carousel-cell">
-          <div class="carousel-opinion">
-            <img class="carousel-opinion-img"
-              src="https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="pizza">
-            <div class="carousel-opinion-texts">
-              <h2 class="carousel-opinion-texts-title">Greate venue</h2>
-              <p class="carousel-opinion-texts-description"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
-              <p class="carousel-opinion-texts-signature"> - Joseph </p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <div class="carousel-opinion">
-            <img class="carousel-opinion-img"
-              src="https://images.pexels.com/photos/3915855/pexels-photo-3915855.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="pizza">
-            <div class="carousel-opinion-texts">
-              <h2 class="carousel-opinion-texts-title">Good snacks</h2>
-              <p class="carousel-opinion-texts-description"> It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing </p>
-              <p class="carousel-opinion-texts-signature">- Fernado </p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <div class="carousel-opinion">
-            <img class="carousel-opinion-img"
-              src="https://images.pexels.com/photos/3762069/pexels-photo-3762069.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="pizza">
-            <div class="carousel-opinion-texts">
-              <h2 class="carousel-opinion-texts-title">Best service</h2>
-              <p class="carousel-opinion-texts-description">Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-              <p class="carousel-opinion-texts-signature">- Brayana </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="home-warpper container"></div>
     </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
@@ -140,8 +103,6 @@
         </ul>
       </li>
     </script>
-
-
     <script id="template-menu-product" type="text/x-handlebars-template">
       <article class="product"> <!-- product -->
 
@@ -285,6 +246,46 @@
         </form>
       </div>
     </script>
+    <script id="template-home-page" type="text/x-handlebars-template">
+<!-- Flickity HTML init -->
+    <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true }'>
+  <div class="carousel-cell">
+    <div class="carousel-opinion">
+      <img class="carousel-opinion-img"
+        src="https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="pizza">
+      <div class="carousel-opinion-texts">
+        <h2 class="carousel-opinion-texts-title">Greate venue</h2>
+        <p class="carousel-opinion-texts-description"> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </p>
+        <p class="carousel-opinion-texts-signature"> - Joseph </p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-cell">
+    <div class="carousel-opinion">
+      <img class="carousel-opinion-img"
+        src="https://images.pexels.com/photos/3915855/pexels-photo-3915855.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="pizza">
+      <div class="carousel-opinion-texts">
+        <h2 class="carousel-opinion-texts-title">Good snacks</h2>
+        <p class="carousel-opinion-texts-description"> It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing </p>
+        <p class="carousel-opinion-texts-signature">- Fernado </p>
+      </div>
+    </div>
+  </div>
+  <div class="carousel-cell">
+    <div class="carousel-opinion">
+      <img class="carousel-opinion-img"
+        src="https://images.pexels.com/photos/3762069/pexels-photo-3762069.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load" alt="pizza">
+      <div class="carousel-opinion-texts">
+        <h2 class="carousel-opinion-texts-title">Best service</h2>
+        <p class="carousel-opinion-texts-description">Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+        <p class="carousel-opinion-texts-signature">- Brayana </p>
+      </div>
+    </div>
+  </div>
+    </div>
+
+</script>
+
     <script src="vendor/flickity.pkgd.min.js"></script>
     <script src="vendor/range-slider.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
