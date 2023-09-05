@@ -146,11 +146,13 @@
     position: relative;
     height: 193px;
     width: 193px;
+    border-radius: $radius;
 
     .photo {
       height: 100%;
       width: 100%;
       object-fit: cover;
+      border-radius: $radius;
     }
     &:hover .background-shadow {
       opacity: 0.7;
@@ -164,6 +166,7 @@
       background-color: $color-dark;
       opacity: 0;
       transition: $transition;
+      border-radius: $radius;
     }
 
     .icon-shadow {
@@ -181,6 +184,7 @@
 
       &:hover {
         opacity: 1;
+        border-radius: $radius;
       }
       i {
         color: $color-main;
@@ -202,6 +206,10 @@
   color: $color-main;
   font-size: 14px;
   font-weight: $font-normal;
-  margin: 31px 0 0 49px;
+  margin: 31px 0 0 25px;
   padding-bottom: 30px;
+}
+.fa-heart,
+.fa-share-nodes{
+  color: #cb1a1a;
 }
