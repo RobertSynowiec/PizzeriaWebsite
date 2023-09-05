@@ -21,12 +21,11 @@
           <h1 class="logo__title"><span>Mamma</span>Mia!</h1>
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
-
         <div class="main-nav">
           <a href="#home">Home</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
-      </div>
+        </div>
         <div id="cart" class="cart">
           <div class="cart__summary">
             <span class="cart__total-number">0</span>
@@ -67,6 +66,20 @@
   <div id="pages">
     <section id="home">
       <div class="booking-home container">
+          <div class="home-boxes">
+            <a href="#order" class="box box-left">
+              <p class="box-text">order online </p>
+              <p class="text-hidden">Delicious food delivered to your door</p>
+            </a>
+            <a href="#booking" class="box box-right">
+              <p class="box-text">book a table</p>
+              <p class="text-hidden">Make sure that your seat is reserved for you</p>
+            </a>
+            <div class="box-down">
+              <p class="information">opening hours:</p>
+              <p class="data">tue-sun, 12pm-12am</p>
+            </div>
+          </div>
       <!-- Flickity HTML init -->
       <div class="carousel" data-flickity='{ "wrapAround": true, "autoPlay": true }'>
         <div class="carousel-cell">
@@ -103,7 +116,52 @@
           </div>
         </div>
       </div>
+    <div class="home-gallery">
+      <div class="photo-box"><img src="images/assets/pizza-4.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+      <div class="photo-box"><img src="images/assets/pizza-5.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+      <div class="photo-box"><img src="images/assets/pizza-6.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+      <div class="photo-box"><img src="images/assets/pizza-7.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+      <div class="photo-box"><img src="images/assets/pizza-8.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
+      <div class="photo-box"><img src="images/assets/pizza-3.jpg" alt="" class="photo">
+        <div class="background-shadow"></div>
+        <div class="icon-shadow">
+          <i class="fa-solid fa-heart"></i>
+          <i class="fa-solid fa-share-nodes"></i>
+        </div>
+      </div>
     </div>
+  <a class="instagram" href="https://www.instagram.com/">View more on Instagram</a>
+</div>
     </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
@@ -112,7 +170,6 @@
       <div class="booking-wrapper container"></div>
     </section>
   </div>
-
     <script id="template-cart-product" type="text/x-handlebars-template">
       <li>
         <div class="widget-amount"> <!-- widget-amount -->
@@ -140,8 +197,6 @@
         </ul>
       </li>
     </script>
-
-
     <script id="template-menu-product" type="text/x-handlebars-template">
       <article class="product"> <!-- product -->
 

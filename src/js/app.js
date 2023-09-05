@@ -80,6 +80,7 @@ const app = {
     thisApp.data = {};
 
     const url = settings.db.url + '/' + settings.db.products;
+    console.log('url ', url)
 
     fetch(url)
       .then(function (rawResponse) {
@@ -88,6 +89,7 @@ const app = {
       .then(function (parasedResposne) {
         /* save parasedResposne as thisApp.data.products*/
         thisApp.data.products = parasedResposne;
+        console.log(' thisApp.data.products ', thisApp.data.products);
 
         /* execute initMenu method*/
         thisApp.initMenu();
